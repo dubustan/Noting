@@ -84,3 +84,31 @@
   + Compressed Private Keys: private key from which only compressed public keys should be derived 
   + Uncompressed Private Keys: private keys from which only uncompressed public keys should be derived
 - If a bitcoin wallet is able to implement compressed public keys, it will use those in all transactions.
+## **Advance Keys and Addresses**
+### **Encrypted Private Key** (BIP-38)
+- The need for _confidentiality_ conflicts with important security objective _availablity_
+- BIP-38 encryption scheme takes as input a bitcoin private key, usually encoded in the WIF, as a Base58Check string with the prefix "5", also takes a passphrase
+- Result: Base58Check-encoded encrypted private key that begins with 6P and requires passphrase to convert back
+### **Pay-to-Script Hash (P2SH) and MultiSig Addresses**
+- Traditional bitcoin address starts with 1 
+- Bitcoin addresses starting with 3 are pay-to-script hash addresses or multisig addresses.
+- Designate the beneficiary of a bitcoin transaction as the hash of a script.
+- Provide the opportunity to add functionality to the address itself.
+- Funds sent to "3" addresses require more than needed. 
+- Encoding P2SH addresses involve using the same double-hash function as used during creation of a bitcoin address, only applied to the script
+#### Multisignature addresses and P2SH
+- The underlying script require more than one signature.
+- The bitcoin multisignature feature is designed to require M signatures from a total N keys, know as M-of-N multisig (M $\leq$ N)
+### **Vanity Addressses**
+- No less or more secure than any other address
+- Contain human-readable messages
+- Require generating and testing billions of candidate private keys, until the desired one is found.
+- Brute-force to create 
+- Increase security
+### **Paper wallet**
+- Bitcoin private keys **printed on paper** 
+- Effective way to create backup or **offline** bitcoin private, provide security agaist the loss of key due to computer mishap
+- Much more secure because paper wallet keys are generated offline and never stored in computer (cold storage mechanism)
+- Can be generated easily by using a tool such as client-side Javascript generator at _bitaddress.org_
+- Vunerable to thefts, sophisticated paper wallet using BIP 38.
+- Protected by a **passphrase** -> superior to passphara-protected
