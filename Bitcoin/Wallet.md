@@ -11,7 +11,7 @@
 - Such wallets are being replaced because they are cumbersome to manage, backup, import.
 - _Disadvantage of random keys_: the more you generate, the more copies you must keep -> conflict with principle of avoiding address reuse (reduce privacy).
 
-### **Deterministic (Seeded) Wallets
+### **Deterministic (Seeded) Wallets**
 - Keys derived from one seed through one-way hash function.
 - Seed is a randomly generated number combined with other data
 - Seed is sufficient to recover all derived keys, import and export.
