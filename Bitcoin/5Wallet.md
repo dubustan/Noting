@@ -79,3 +79,30 @@
   + An index number (32 bits)
 - The initial chain code seed is made from the seed, while subsequent child codes are derived from each parent chain code.
 ![image](https://raw.githubusercontent.com/bitcoinbook/bitcoinbook/develop/images/mbc2_0510.png)
+#### **Using derived child key**
+- Child private keys are not distinguishable from random keys (cannot find parents or siblings)
+- Both the child private kets and the chain code to start a new brand and derive grandchildren
+
+#### **Extended key**
+- 2 essential ingredients to create children: the key and the chain code &#8594; extended key in combination  
+- Can be used to derive children
+- Represented as the concatenation of the 256-bit key and 256-bit chain code to 512 bit sequence
+- 2 types
+  - Extended private key = private key ++ chaincode &#8594; der ive child private key (child public key)
+  - Extended public key = public key ++ chaincode &#8594; derive child public key
+- The extended private key can create a complete branch, whereas the extended public key can only create a branch of public keys 
+- The Base58Check used for extended keys uses a special version number that results in the prefix "xprv" and "xpub" to make them recognizable.
+#### **Public child key derivation**
+- 2 ways to derive child public key: child private key or parent public key
+- Secure public key–only deployments: Extended public key can be used to product infinite number of public keys and bitcoin addresses, but cannot spend. Extended private key can spend.
+- Application: install an extended public key on a web server which can use the public key derivation function to create new bitcoin address for every transacton. The server will not have any private keys that can be vunerable to theft
+- Application: cold storage or hardware wallet, extended private key stored on a paper wallet or hardware device, the extended private key kept online. To spend funds, user can use the extended private key on an offline signing bitcoin client  
+![image](https://raw.githubusercontent.com/bitcoinbook/bitcoinbook/develop/images/mbc2_0511.png)
+#### **Hardened child key derivation**
+- Potential risk: Because xpub contains the chain code, if a child private keys is known, all the private keys of all the children could be revealed. Child private key + papent chain code can deduce parent private key
+- Solution:
+  -  hardened derivation breaks relationship between parent public key and child chain code.
+  - Hardened derivation function uses the parent private key to derive child chain code, instead of parent public key
+
+![image](https://raw.githubusercontent.com/bitcoinbook/bitcoinbook/develop/images/mbc2_0513.png)
+- The resulting 
