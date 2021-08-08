@@ -105,4 +105,38 @@
   - Hardened derivation function uses the parent private key to derive child chain code, instead of parent public key
 
 ![image](https://raw.githubusercontent.com/bitcoinbook/bitcoinbook/develop/images/mbc2_0513.png)
-- The resulting 
+- The resulting child private key and the chain code are completely different from what would result from the normal derivation function.
+- The result branch of keys can be used to produce extended public keys that are not vulnerable
+#### **Index numbers for normal and hardened derivation**
+- Index from 0 to 2<sup>31</sup> - 1 are used for _only_ normal derivation.
+- Index from 2<sup>31</sup> to 2<sup>32</sup> - 1 are used for _only_ hardened derivation
+
+#### **HD wallet key identifier**
+- Keys in HD wallet are identified using "path" naming convention, with each level of the tree seperated by a slash (/)
+
+| HD path      | Key described |
+| ----------- | ----------- |
+| m/0      |The first (0) child private key from the master private key (m)        |
+| m/0/0   | The first (0) child private key from the first child (m/0)       |
+| m/0'/0 | The first (0) normal child from the first hardened child (m/0') |
+| m/1/0 | The first (0) child private key from the second child (m/1) |
+| M/23/17/0/0 | The first (0) child public key from the first child (M/23/17/0) from the 18th child (M/23/17) from the 24th child (M/23) |
+
+#### **Navigating the HD wallet tree structure**
+- Each parent extended key can have 4 billion children: 2 million normal and 2 million hardened &#8594; difficult to navigate.
+- Two BIPs offer some proposed standard:
+  - BIP-43 proposes the use of the first hardened child index as a special identifier that signifies purpose of the tree structure
+  - BIP-44 proposes a multiaccount structure as "purpose" number 44'. All HD wallets following the BIP-44 structure are identified by the fact that they only used one branch of the tree
+- BIP-44 specifies the structure as consisting of five predefined levels: 
+_m / purpose' / coin_type' / account' / change / address_index_
+  - _purpose'_ is always set to 44'
+  - _coin_type_ specifies type of currency, allowing for multicurrency HD/wallets. There are 3 currencies: **Bitcoin**(m/44'/0'), **Bitcoin Testnet**(m/44& #x27;/1&#x27), **Litecoin**(m/44&#x 27;/2&#x 27;)
+  - _account_ allows user to subdivide their wallets into seperate logical subaccounts
+  - _change_ is an HD wallet having 2 subtrees: one for creating receiving addresses, one for creating change addresses using normal derivation to 
+  
+| HD path      | Key described |
+| ----------- | ----------- |
+| M/44&#x27;/0&#x27;/0&#x27;/0/2     |The third receiving public key for the primary bitcoin account        |
+| M/44&#x27;/0&#x27;/3&#x27;/1/14   | The fifteenth change-address public key for the fourth bitcoin account    |
+| m/44&#x27;/2&#x27;/0&#x27;/0/1| The second private key in the Litecoin main account, for signing transactions |
+
