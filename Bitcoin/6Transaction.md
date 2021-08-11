@@ -141,4 +141,27 @@
   - ranging from simplistic to sophisicated
   - to estimate the reasonable fee that have high chances being selected to block.
   - 3 option: high, medium, low priority.
- 
+### **Adding Fees to Transactions**
+- The data structure of transactions does not have a field for fees. Fees implied as the difference between the sum of inputs and the sum of outputs
+```
+Fees = Sum(Inputs) – Sum(Outputs)
+```
+## **Transactions Scripts and Script Language**
+- When a transaction is validated, the unlocking script in each input is executed alongside the corresponding locking script to see if it satisfies the spending condition.
+- Script is a very **simple language** that has designed to be **limited in scope** and executable on a range of software.
+- Most transactions are based on script called Pay-to-Public-Key-Hash script. 
+- Bitcoin transaction is achieved through the execution of a scripting language allowing for a nearly infinite variety of conditions to be expressed.
+### **Turing Incompleteness**
+- Operators in transactions are limited: no loops for complex flow control capabilities other than conditional flow control &#8594; not _Turing Complete_
+- Script is not general-purpose language. A limited language prevents the transaction mechanism from being used as a vulnerability.
+### **Stateless Verification**
+- The transaction script language is stateless.&#8594; all information needed to execute a script is contained within the script.
+- If your system verifies a script, you can be sure that every other system in the bitcoin network will also verify the script, meaning that a valid transaction is valid for everyone and everyone knows this.
+### **Script Construction**
+- Bitcoin's transaction validation engine relies on 2 types of script: locking and unlocking
+  - Locking script (*scriptPubKey*) is a spending condition placed on an output: it specifies the conditions that must be met to spend the output in the future. You will see locking script as _witness script_ or as a _cryptographic puzzle_
+  - An unlock script (*scriptSig*) is a script that solves (satisfies) the conditions placed on an output by a locking script and allows the output to be spent. Most of the time they contain a digital signature. You will 
+- Every bitcoin validating node will validate transactions by executing the locking and unlocking script together: Each input contains an unlocking script and refers to a **previously existing UTXO**. The validation software will **copy** the unlocking script, **retrieve** the UTXO referenced by the input, and copy the locking script from that UTXO. The unlocking and locking script are then executed in sequence
+- Combining unlocking script and locking script to evaluate a transaction script
+
+![image](https://raw.githubusercontent.com/bitcoinbook/bitcoinbook/develop/images/mbc2_0603.png)
