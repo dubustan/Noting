@@ -130,7 +130,7 @@
 - BIP-44 specifies the structure as consisting of five predefined levels: 
 _m / purpose' / coin_type' / account' / change / address_index_
   - _purpose'_ is always set to 44'
-  - _coin_type_ specifies type of currency, allowing for multicurrency HD/wallets. There are 3 currencies: **Bitcoin**(m/44'/0'), **Bitcoin Testnet**(m/44& #x27;/1&#x27), **Litecoin**(m/44&#x 27;/2&#x 27;)
+  - _coin_type_ specifies type of currency, allowing for multicurrency HD/wallets. There are 3 currencies: **Bitcoin**(m/44'/0'), **Bitcoin Testnet**(m/44&#x27;/1&#x27), **Litecoin**(m/44&#x27;/2&#x 27;)
   - _account_ allows user to subdivide their wallets into seperate logical subaccounts
   - _change_ is an HD wallet having 2 subtrees: one for creating receiving addresses, one for creating change addresses using normal derivation to 
   
