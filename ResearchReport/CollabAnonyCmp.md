@@ -7,11 +7,11 @@ Privacy (CMI), 28-29 Nov. 2019 2019, pp. 1-6, doi: 10.1109/CMI48017.2019.8962140
 ## **Similarities and differences**
 ### **Similarities**
 - **Quasi-identifier** could be used with external knowledge to identify individuals.
-- **Locally data anonymization** shows weaknesses: it does not result in desired privacy protection level or is not suitable for a collaborative network such as VANET.
+- **Locally data anonymization**  does not result in desired privacy protection level or is not suitable for a collaborative network such as VANET.
 ### **Differences**
 
-|First paper|Second paper|
+|First paper|Second paper 2|
 |-|-|
-|<ul><li>The collected data is used for a local analysis to support a **query-answer system**. - No data should be leaked to external parties</li><li>Increase the **confidence** of **respondents** during data collection - Respondents are not willing to reveal their data due to privacy concern.</li><li> Protect both **sensitive-QID** and **sensitive attributes** while maintaining the **utility** of the released microdata</li></ul>|<ul><li>Help vehicles to share information safely in an **insecure vehicular ad-hoc network**, which can experience **Privacy-related issues** and **network attacks**</li><li>Achieve a desirable level of **data sanitization** in a group</li></ul>|
+|<ul><li>The collected data is used for a local analysis to support a **query-answer system** &#8594; No data should be leaked to external parties</li><li>Increase the **confidence** of **respondents** during data collection - Respondents are not willing to reveal their data due to privacy concern.</li><li> Protect both **sensitive-QID** and **sensitive attributes** while maintaining the **utility** of the released microdata</li></ul>|<ul><li>Help vehicles to share information safely in an **insecure vehicular ad-hoc network**, which can experience **Privacy-related issues** and **network attacks**</li><li>Achieve a desirable level of **data sanitization** in a group</li></ul>|
 
 ## **Related papers**
