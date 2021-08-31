@@ -1,4 +1,4 @@
-# **Report (29/8): Comparison between two papers related to Anonymized Data**
+# **Report (29/8): Comparison between two papers related to Collaborative Data Anonymization**
 ## **Introduction**
 This report aims to make a comparison between the problem of two papers before providing papers related to collaborative data anonymization.
 - The first one is _K. Wong, N. A. Tu, D. Bui, S. Y. Ooi, and M. H. Kim, "PrivacyPreserving Collaborative Data Anonymization with Sensitive QuasiIdentifiers," in 2019 12th CMI Conference on Cybersecurity and
