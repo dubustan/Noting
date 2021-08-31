@@ -7,7 +7,7 @@ Privacy (CMI), 28-29 Nov. 2019 2019, pp. 1-6, doi: 10.1109/CMI48017.2019.8962140
 ## **Comparison**
 ### **Similarities**
 - **Quasi-identifier** could be used with external knowledge to identify individuals.
-- **Locally data anonymization** show weaknesses: it does not result in desired privacy protection level or is not suitable for a collaborative network such as VANET.
+- **Locally data anonymization** show **weaknesses**: it does not result in desired privacy protection level or is not suitable for a collaborative network such as VANET.
 ### **Differences**
 
 |First paper|Second paper|
