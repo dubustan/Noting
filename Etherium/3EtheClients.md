@@ -47,4 +47,3 @@
 - **Disadvantages:**
   - No users = It doesn’t behave the same as a public blockchain
   - You can’t test some scenarios that occur on a public blockchain.
-    - 
