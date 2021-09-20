@@ -1,5 +1,5 @@
 # **Chapter 1: Computer Network and the Internet**
-## **1.1 What is Internet*****
+## **1.1 What is Internet**
 ### **1.1.1 A Nuts-and-Bolts Description**
 - **Hosts** or **end systems**: nontraditional devices that are being hooked up to the Internet
 - End systems are connected together by a network of **communication links** and
