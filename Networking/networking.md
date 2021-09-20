@@ -45,8 +45,10 @@ subscriber line (DSL)** and cable
 ![image](./image/hfc.png)
 
 - In particular, every packet sent by the head end travels downstream on every link to every home and every packet sent by a home travels on the upstream channel to the head end.
-- An up-and-coming technology that
-promises even higher speeds is the deployment of **fiber to the home (FTTH)**
+- An up-and-coming technology that promises even higher speeds is the deployment of **fiber to the home (FTTH)**
+
+![image](./image/ftth.png)
+
 - There are two competing optical-distribution network architectures that
 perform this splitting: **active optical networks (AONs)** and **passive optical networks (PONs)**
 - Most FTTH ISPs provide different rate offerings, with the higher
