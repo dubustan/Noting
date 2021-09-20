@@ -40,8 +40,10 @@ subscriber line (DSL)** and cable
 
 ![image](./image/DSL.png)
 
-- **Hybrid fiber coax (HFC)** (using fiber
-and coaxial cable): While DSL makes use of the telco’s existing local telephone infrastructure, **cable Internet access** makes use of the cable television company’s existing cable television infrastructure.
+- **Hybrid fiber coax (HFC)** (using fiber and coaxial cable): While DSL makes use of the telco’s existing local telephone infrastructure, **cable Internet access** makes use of the cable television company’s existing cable television infrastructure.
+
+![image](./image/hfc.png)
+
 - In particular, every packet sent by the head end travels downstream on every link to every home and every packet sent by a home travels on the upstream channel to the head end.
 - An up-and-coming technology that
 promises even higher speeds is the deployment of **fiber to the home (FTTH)**
