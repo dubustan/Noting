@@ -57,3 +57,56 @@ rates naturally costing more money
 - Although there
 are many types of LAN technologies, Ethernet is by far the most prevalent access
 technology in corporate, university, and home networks
+- Even though Ethernet and WiFi access networks were initially deployed in enterprise (corporate, university) settings, they have recently become relatively common
+components of home networks.
+- **Home network** consists of: 
+  - A **roaming laptop** as well as a wired PC
+  - A **base station** (the wireless access point), which communicates with the wireless PC;
+  - A **cable modem**, providing broadband access to the Internet 
+  - A **router**, which interconnects the base station and the stationary PC with the cable modem.
+
+![image](./image/homenetwork.png)
+
+#### **Wide-Area Wireless Access: 3G and LTE**
+- Devices employ the same wireless infrastructure used for cellular telephony
+to send/receive packets through a base station that is operated by the cellular network provider
+- **LTE** ( for “Long-Term Evolution”—a candidate for Bad Acronym of the Year Award) has its roots in 3G technology, and can potentially achieve rates in excess of 10 Mbps
+
+### **Physical Media**
+- Thus our bit, when traveling from source to destination, passes through a series
+of transmitter-receiver pairs. For each transmitter-receiver pair, the bit is sent by propagating electromagnetic waves or optical pulses across a **physical medium**.
+- Physical media fall
+into two categories: 
+  - **Guided media**:  the
+waves are guided along a solid medium, such as a fiber-optic cable, a twisted-pair
+copper wire, or a coaxial cable
+  - **Unguided media**: the waves propagate in the atmosphere and in outer space, such as in a wireless LAN or a digital satellite
+channel.
+#### **Twisted-Pair Copper Wire**
+- The least expensive and most commonly used guided transmission medium 
+- The wires are twisted together to reduce the electrical interference from similar pairs close by
+- **Unshielded twisted pair (UTP)** is commonly used for computer networks within a building, that is, for LANs.
+#### **Coaxial Cable**
+- An optical fiber is a thin, flexible medium that conducts pulses of light, with each pulse representing a bit
+-  However, the high cost of optical devices—such as transmitters, receivers, and switches—has
+hindered their deployment for short-haul transport, such as in a LAN or into the home in a residential access network.
+
+#### **Terrestrial Radio Channels**
+- They are an attractive medium because they require no physical wire to be installed, can penetrate walls,
+provide connectivity to a mobile user, and can potentially carry a signal for long distances.
+- Terrestrial radio channels can be broadly classified into three groups:
+  - those that operate over very short distance
+  - those that operate in
+local areas, typically spanning from ten to a few hundred meters
+  - those that
+operate in the wide area, spanning tens of kilometers
+#### **Satellite Radio Channels**
+- Two types of satellites are used in communications:   
+  - **Geostationary satellites**: Geostationary satellites permanently remain above the same spot on Earth. This stationary presence is achieved by placing the satellite in orbit at 36,000 kilometers
+  above Earth’s surface.
+  - **Low-earth orbiting (LEO) satellites**: placed much closer to Earth and do not remain permanently
+above one spot on Earth. They rotate around Earth (just as the Moon does) and may
+communicate with each other, as well as with ground stations.
+
+## **Network Core**
+- 
