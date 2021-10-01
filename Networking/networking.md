@@ -38,16 +38,11 @@ client program, or an e-mail server program (*host = end system*)
 - Today, the two most prevalent types of broadband residential access are **digital
 subscriber line (DSL)** and cable
 
-![image](./image/DSL.png)
-
 - **Hybrid fiber coax (HFC)** (using fiber and coaxial cable): While DSL makes use of the telco’s existing local telephone infrastructure, **cable Internet access** makes use of the cable television company’s existing cable television infrastructure.
 
-![image](./image/hfc.png)
 
 - In particular, every packet sent by the head end travels downstream on every link to every home and every packet sent by a home travels on the upstream channel to the head end.
 - An up-and-coming technology that promises even higher speeds is the deployment of **fiber to the home (FTTH)**
-
-![image](./image/ftth.png)
 
 - There are two competing optical-distribution network architectures that
 perform this splitting: **active optical networks (AONs)** and **passive optical networks (PONs)**
@@ -64,8 +59,6 @@ components of home networks.
   - A **base station** (the wireless access point), which communicates with the wireless PC;
   - A **cable modem**, providing broadband access to the Internet 
   - A **router**, which interconnects the base station and the stationary PC with the cable modem.
-
-![image](./image/homenetwork.png)
 
 #### **Wide-Area Wireless Access: 3G and LTE**
 - Devices employ the same wireless infrastructure used for cellular telephony
