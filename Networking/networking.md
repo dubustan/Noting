@@ -373,3 +373,53 @@ sniffing involve **cryptography**.
 - The ability to inject
 packets into the Internet with a false source address is known as **IP spoofing**, and is but one of many ways in which one user can masquerade as another user.
 - To solve this problem, we will need **end-point authentication**
+
+# **Chapter 2**
+## **2.1 Principles of Network Applications**
+- At the core of network application development is writing programs that **run on
+different end systems** and **communicate with each other** over the network
+- We need to write software that
+will run on multiple end systems, not neccessarily run on network core devices
+### **2.1.1 Network Application Architectures**
+- The **network architecture** is fixed and provides a specific set of services to applications
+- The **application
+architecture** is designed by the application developer and dictates how the application is structured over the various end systems.
+- Two predominant architectural paradigms:
+  - **Client-server architecture**: 
+    - There is an always-on host (*server*), which services requests from many other hosts, called *clients*. 
+    - Clients do not directly communicate with each other. 
+    - The server has a fixed, well-known address, called an IP address.  
+    - A **data center**, housing a large number of hosts, is often used to create a powerful virtual server
+  - **P2P architecture**:
+    - The application exploits direct communication between pairs of intermittently connected hosts, called *peers*
+    - One of the most compelling features of P2P architectures is their **self-scalability**
+    - P2P applications face three major challenges: *ISP Friendly*, *Security*, *Incentives*
+### **2.1.2 Processes Communicating**
+- A **process** can be thought of as a program that is running within an
+end system. 
+- Processes on two different end systems communicate with each other by exchanging **messages** across the computer network.
+
+#### **Client and Server Processes**
+- In the context of a communication session between a pair of processes, the
+process that initiates the communication (that is, initially contacts the other
+process at the beginning of the session) is labeled as the **client**. The process
+that waits to be contacted to begin the session is the **server**.
+
+#### **The Interface Between the Process and the Computer Network**
+- A process
+sends messages into, and receives messages from, the network through a software
+interface called a **socket**, which is the between the application layer and the transport layer within a host.
+-  It is also referred to as the **Application Programming Interface (API)**
+-  The application
+developer has control of everything on the application-layer side of the socket but
+has little control of the transport-layer side of the socket. The only control includes
+   - The choice of transport
+protocol
+   - The ability to fix a few transport-layer parameters
+#### **Addressing Processes**
+- To identify the receiving process, two pieces of information need to be specified:
+  -  The address of the host 
+  -  An identifier that specifies the receiving process
+in the destination host
+- In the Internet, the host is identified by its **IP address**
+- A destination **port number** is needed when a host could be running many network applications
