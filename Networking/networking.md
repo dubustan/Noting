@@ -423,3 +423,491 @@ protocol
 in the destination host
 - In the Internet, the host is identified by its **IP address**
 - A destination **port number** is needed when a host could be running many network applications
+
+### **2.1.3 Transport Services Available to Applications**
+- The transport-layer protocol
+has the responsibility of getting the messages to the socket of the receiving
+process
+
+#### **Reliable Data Transfer**
+- Packets can get lost within a computer network.
+- If
+a protocol provides such a guaranteed data delivery service, it is said to provide
+**reliable data transfer**. 
+-  Transport-layer protocol can
+potentially provide process-to-process reliable data transfer.
+- **Loss-tolerant applications**: some of
+the data sent by the sending process may never arrive at the receiving process when a transport-layer protocol doesn’t provide reliable data transfer.
+
+#### **Throughput**
+- A transport-layer protocol could provide, namely, guaranteed available throughput
+at some specified rate
+- Applications that have throughput
+requirements are said to be **bandwidth-sensitive applications** (many current
+multimedia applications).
+- **Elastic applications** can make use of as much, or as little, throughput
+as happens to be available (Electronic mail, file transfer, and Web transfers).
+
+#### **Timing**
+- A transport-layer protocol can also provide timing guarantees.
+#### **Security**
+- A transport protocol can provide an application with one or more security services.
+- A transport protocol can encrypt all data
+transmitted by the sending process and the transport-layer
+protocol can decrypt the data before delivering the data to the receiving process
+
+### **2.1.4 Transport Services Provided by the Internet**
+- The Internet (TCP/IP networks) makes two transport protocols available to applications,
+UDP and TCP.
+#### **TCP Services**
+- *Connection-oriented service*: 
+  - TCP has the client and server exchange transport-layer control information with each other *before* the application-level messages begin to flow (handshaking procedure).
+  - After the handshaking phase, a **TCP connection** is said to exist between the sockets of the two processes
+  - **Secure Sockets Layer (SSL)** is the enhancement of TCP, which provides process-to-process security services
+- *Reliable data transfer service*: . The communicating processes can rely on TCP
+to deliver all data sent without error and in the proper order.
+- TCP also includes a congestion-control mechanism
+
+#### **UDP Services**
+- A connectionless, no-frills, lightweight transport protocol, providing minimal services
+- UDP provides an unreliable data transfer service
+- UDP does not include a congestion-control mechanism
+
+#### **Services Not Provided by Internet Transport Protocols**
+- Today’s Internet can often provide satisfactory service to time-sensitive
+applications, but it cannot provide any timing or throughput guarantees.
+
+### **2.1.5 Application-Layer Protocol**
+- An **application-layer protocol** defines how an application’s processes, running on different end systems, pass messages to each other
+- An application-layer protocol is only one piece of a network application
+- Example:
+  - Web's application-layer protocol: HTTP
+  - Email's application-layer protocol: SMTP
+## **2.2 The Web and HTTP**
+- What appeals the most to users is that the Web operates *on demand*.
+### **2.2.1 Overview of HTTP**
+- The **HyperText Transfer Protocol (HTTP)**, the Web’s application-layer protocol,
+is at the heart of the Web.
+- A **Web page** (also called a **document**) consists of objects
+- An **object** is simply a file—such as an HTML file, a JPEG image, a Java applet, or a video clip that is
+addressable by a single URL.
+- Most Web pages consist of a **base HTML file** and
+several referenced objects
+- Because **Web browsers** implement the client side of HTTP,  we will use
+the words browser and client interchangeably
+-  **Web servers**, which implement the
+server side of HTTP, house Web objects, each addressable by a URL.
+- The HTTP clients first initiates a TCP connection to the server and then the browser and the server processes access TCP through their socket interfaces
+- The server sends requested files to clients without storing any state information about the client
+- Because an HTTP server maintains no information about the clients, HTTP is said to be a **stateless protocol**.
+
+### **2.2.2 Non-Persistent and Persistent Connection**
+- The application is said to use **non-persistent connections** when each request/response
+pair is sent over a separate TCP connection
+- The application is said to use **persistent connections** when all of the requests and their corresponding responses be sent over the *same* TCP connection.
+
+#### **HTTP with Non-Persistent Connections**
+- Each TCP connection transports exactly **one request message** and **one response message** and is closed after the server sends the object—the connection does not persist for other objects.
+- **Round-trip time (RTT)** is the time it takes for a small packet to travel from client to server
+and then back to the client
+
+#### **HTTP with Persistent Connections**
+- Non-persistent connections have some shortcomings:
+  - A brand-new connection must be established and maintained for *each requested object*, which can place a significant burden on the Web server
+  - Each object suffers a delivery delay of two RTTs—
+one RTT to establish the TCP connection and one RTT to request and receive an
+object..
+- With persistent connections, the server leaves the TCP connection open after
+sending a response
+- The HTTP server closes a connection when it isn’t used for a certain time
+
+### **2.2.3 HTTP Message Format**
+#### **HTTP Request Message**
+```
+GET /somedir/page.html HTTP/1.1
+Host: www.someschool.edu
+Connection: close
+User-agent: Mozilla/5.0
+Accept-language: fr
+```
+- First lines: **request line** with 3 fields:
+  - The method field (GET, POST, HEAD, PUT, and DELETE)
+  - The URL field
+  - The HTTP version field
+- The subsequent lines are called the **header lines**.
+- The first header line specifies the host on which the object resides.
+- By including the second header line, it wants the server to close the connection after sending the requested subject.
+- The third header specifies the user-agent, the browser type
+- The last header indicates that the user prefers to receive a French version of
+the object, if such an object exists on the server; otherwise, the server should send
+its default version
+- After the header lines (and the
+additional carriage return and line feed) there is an “entity body.” which is used for POST method 
+#### **HTTP Respond Message**
+```
+HTTP/1.1 200 OK
+Connection: close
+Date: Tue, 09 Aug 2011 15:44:04 GMT
+Server: Apache/2.2.3 (CentOS)
+Last-Modified: Tue, 09 Aug 2011 15:11:03 GMT
+Content-Length: 6821
+Content-Type: text/html
+(data data data data data ...)
+```
+- It has three sections: 
+  - An initial **status line**, which contains 3 fields:
+    - The protocol version field
+    - A status code
+    - A corresponding status message.
+  - Six **header lines**
+    - The first header line tells the client that it is going to close the TCP connection after sending the message. 
+    - The second header line indicates the time and date when the HTTP response was created and sent by the server.
+    - The third header line indicates that the message was generated by an Apache Web server
+    - The fourth header line indicates the
+time and date when the object was created or last modified.
+    - The fifth header line indicates the number of bytes in the object being
+sent
+    - The last header line indicates that the object in the entity body is HTML text
+  - The **entity body**
+- The status code and associated
+phrase indicate the result of the request.
+  - 200 OK: Request succeeded and the information is returned in the response.
+  - 301 Moved Permanently: Requested object has been permanently moved
+  - 400 Bad Request: request
+could not be understood by the server
+  - 404 Not Found: The requested document does not exist on this server.
+  - 505 HTTP Version Not Supported
+- A browser will generate header lines as a function of the browser type
+and version , the user configuration of the browser, and
+whether the browser currently has a cached, but possibly out-of-date, version of the
+object.
+
+### **User-Server Interaction**
+- It is often desirable for a
+Web site to identify users. 
+- **Cookies** allow sites to keep
+track of users and have 4 components:
+  1. A cookie header line in the HTTP response message
+  2. A cookie header line in the HTTP
+  request message
+  3. A cookie file kept on the user’s end system and managed by the
+user’s browser
+  4. A back-end database at the Web site
+- When a user access a server requiring cookies, it responds a Set-cookies header containing identification number.
+- When user receive the response, it appends a line including hostname of the server and identification number to a cookie file that it manages .
+- Whenever we browse the site, the browser consults the cookie, extracts the identification number and put a cookie header including identification number in HTTP request
+- Cookies can thus be used to create
+a user session layer on top of stateless HTTP
+- Cookies can also be considered as an invasion of privacy.
+
+### **2.2.5 Web Caching**
+- A **Web cache** (**proxy server**) is a network entity that satisfies HTTP
+requests on the behalf of an origin Web server.
+- Cache is both a server and client.
+- The Web cache has its own disk storage
+and keeps copies of recently requested objects in this storage
+- Once a browser is configured, each browser request for an object is
+first directed to the Web cache
+- If the cache do not have the object, it sends a request to the cache-to-server TCP connection. The cache then stores the copy in its local storage.
+- Use of web cache:
+  - A Web cache can **substantially reduce the response time** for a client request
+  - Web caches can **substantially reduce traffic** on an institution’s access link to the Internet.
+- Through the use of **Content Distribution Networks (CDNs)**, Web caches are
+increasingly playing an important role in the Internet
+
+### **2.2.6 The Conditional GET**
+- Caches introduce a new problem: the copy of an object residing in the cache may be stale.
+- **Conditional GET** allows a cache to verify that its objects are up-to-date
+- An HTTP request message is a so-called conditional GET if
+  - The request message
+uses the GET method
+  - The request message includes an If-Modified-Since: header line.
+- The cache performs an up-to-date check by issuing a conditional GET:
+```
+GET /fruit/kiwi.gif HTTP/1.1
+Host: www.exotiquecuisine.com
+If-modified-since: Wed, 7 Sep 2011 09:23:24
+```
+- If the object is not modified, the server sends:
+```
+HTTP/1.1 304 Not Modified
+Date: Sat, 15 Oct 2011 15:39:29
+Server: Apache/1.3.0 (Unix)
+```
+
+## **2.3 File Transfer: FTP**
+- In a typical FTP session, the user is sitting in front of one host (the local host)
+and wants to transfer files to or from a remote host.
+- The user interacts with FTP through an FTP user agent, provides hostnames to FTP and FTP client process to establish a TCP connection to the FTP server process
+- The user then provides the user identification and password.
+- Once the server has authorized the user, the user can send and receives copy of the files.
+- Differences from HTTP: FTP
+uses two parallel TCP connections to transfer a file:
+  - A **control connection** used to send control information between two hosts 
+  - A **data connection** is used to send a file
+- FTP is said to send its control information **out-of-band**, while HTTP is said to send its control information **in-band**.
+- With FTP, the control connection
+remains open throughout the duration of the user session, but a new data connection is created for each file transferred within a session
+- Throughout a session, the FTP server must maintain **state** about the user. Keeping track of state information significantly constrains the total number of sessions that FTP
+can maintain simultaneously.
+
+### **2.3.1 FTP Commands and Replies**
+-  Like HTTP
+commands, FTP commands are readable by people
+- Some of
+the more common commands:
+  - USER username: Used to send the user identification to the server.
+  - PASS password: Used to send the user password to the server.
+  - LIST: Used to ask the server to send back a list of all the files in the current remote directory (sent over data connection).
+  - RETR filename: Used to retrieve a file from the current directory of the remote host
+  - STOR filename: Used to store (that is, put) a file into the current directory
+of the remote host.
+- Some typical replies, along with their possible messages, are as follows:
+  - 331 Username OK, password required
+  - 125 Data connection already open; transfer starting
+  - 425 Can’t open data connection
+  - 452 Error writing file
+
+## **2.4 Electronic mail in the Internet**
+- The Internet mail system has 3 major components: 
+  - **User agents**: allow users to read, reply to, forward, save, and compose messages
+  - **Mail servers**: where the message is placed in the outgoing message queue. When someone wants to read a message, the user agent retrieves the message from the **mailbox** which manages and maintains the messages in the mail server.
+  - **Simple Mail Transfer Protocol (SMTP)**
+- Typical journey: sender's user agent &#8594; (SMTP) sender's mail server &#8594; (SMTP) recipient's mail server &#8594; (POP3, IMAP, HTTP) recipient's mailbox
+- If Alice’s server cannot deliver mail to Bob’s server, Alice’s server holds the message in a message
+queue and attempts to transfer the message later
+### **2.4.1 Simple Mail Transfer Protocol (SMTP)**
+- SMTP transfers messages from senders’ mail servers to the recipients’ mail servers
+- SMTP does not normally use intermediate mail
+servers for sending mail
+- The client SMTP has TCP establish a connection to port 25 at the server SMTP. . If the server is down, the client tries again later. 
+- Once this connection is established, the server and client perform some application-layer
+handshaking. During this SMTP handshaking phase, the SMTP client indicates the e-mail address of the sender and the e-mail address of the recipient
+- After introducing,  the client sends the message.
+- SMTP uses persistent connections
+
+### **2.4.2 Comparison with HTTP**
+- Both protocols are used to transfer
+files from one host to another and use persistent connections
+- Differences:
+  - HTTP is mainly a **pull protocol** (someone loads information on a Web server and users use HTTP to pull the information). SMTP is primarily a **push protocol** (sending mail server
+pushes the file to the receiving mail server)
+  - SMTP requires
+each message to be in 7-bit ASCII format. HTTP data does not impose this
+restriction.
+  -  HTTP encapsulates each object in its own HTTP response message. Internet
+mail places all of the message’s objects into one message.
+
+### **2.4.3 Mail Message Formats**
+- When an e-mail message is sent from one person to another, a header containing peripheral information precedes the body of the message itself
+- Every header must have:
+  - A From: header line
+  - A To: header line
+  - A Subject: headler line
+### **2.4.4 Mail Access Protocols**
+- By executing a mail client on a
+local PC, users enjoy a rich set of features
+- If we place a mail server on the local PC, the PC have to be remain always on and connected to the Internet to receive mail on time.
+- Reason of two step procedure: because without relaying through the mail
+server, the user agent doesn’t have any recourse to an unreachable destination
+mail server
+
+#### **POP3**
+- Popular mail access protocols: **Post Office Protocol—Version 3 (POP3)**, **Internet Mail Access Protocol (IMAP)**, and HTTP
+- POP3 is an extremely simple mail access protocol and its functionality is limited.
+- POP3 begins when the user agent opens a TCP connection to the mail server on port 110 and progresses through 3 phases: 
+  - **Authorization**: the user agent sends a username and a password to authenticate the user. 
+  - **Transaction**: the user
+agent retrieves messages and is able to manage the messages.
+  - **Update**: deletes the messages that were marked for deletion
+- In a POP3 transaction, the user agent issues commands, and the server responds
+to each command with a reply
+- Two possible responses: +OK and -ERR
+- Two principal commands: user\<username> and pass\<password>
+
+```
+telnet mailServer 110
++OK POP3 server ready
+user bob
++OK
+pass hungry
++OK user successfully logged on
+```
+- After the authorization phase, the user agent employed only four commands:
+list, retr, dele, and quit.
+- A user agent using POP3 can
+often be configured (by the user) to “download and delete” or to “download and
+keep.”
+  - A problem with this download-and-delete mode is that the recipient may be nomadic: The downloadand-delete mode partitions mail messages over these three machines.
+  -  In the download-and-keep mode, the user agent leaves the messages on the mail server after downloading them
+- During a POP3 session, the POP3
+server maintains some state information (it keeps track of which user
+messages have been marked deleted). But it does not carry state
+information across POP3 sessions
+#### **IMAP**
+- It has many more features than POP3, but it is also significantly more complex.
+- When a message first
+arrives at the server, it is associated with the recipient’s INBOX folder
+- The IMAP protocol allows users to
+create folders and move messages from one folder to another and to search remote folders for messages matching specific
+criteria
+- An IMAP server maintains user state information
+across IMAP sessions
+- It has commands that permit a user
+agent to obtain components of messages, which is useful when there is a low-bandwidth connection
+
+#### **Web-Based Email**
+- With this service, the user agent is an ordinary Web browser,
+and the user communicates with its remote mailbox via HTTP.
+- The mail server still sends messages using SMTP
+
+## **2.5 The Internet Directory Service**
+- One identifier for a host is its **hostname**
+- Because they would be difficult to process by routers, hosts are also identified by so-called **IP addresses**
+- An IP address consists of four bytes and has a rigid hierarchical structure (121.7.106.83)
+
+### **2.5.1 Services Provided by DNS**
+- Domain Name System (DNS) is:
+  - A distributed database implemented in a hierarchy of **DNS servers**
+  - An application-layer protocol that allows hosts to query the distributed database
+- The DNS protocol runs over UDP and uses
+port 53.
+- Other application-layer protocols employ DNS to translate user-supplied hostnames to IP-addresses, as follow
+  1.  The same user machine runs the client side of the DNS application.
+  2.  The browser extracts the hostname 
+and passes the hostname to the client side of the DNS application. 
+  3. The DNS client sends a query containing the hostname to a DNS server
+  4. The DNS client eventually receives a reply, which includes the IP address for
+the hostname.
+  5. The browser can initiate a TCP connection to the HTTP server process located at port 80 at that IP address.
+- DNS adds an additional delay.
+- DNS provides a few other important services:
+  - **Host aliasing**:A host with a complicated hostname can have alias names. The original hostname is **canonical hostname**.
+  - **Mail server aliasing**: mail server and Web server can have identical hostnames
+  - **Load distribution**: The DNS database
+contains a *set* of IP addresses associated with one canonical hostnames. When clients make a DNS query, the server responds the entire set of IP
+addresses, but rotates the ordering.
+
+### **2.5.2 Overview of How DNS Work**
+- How DNS work:
+  - The application will invoke the client side of DNS, specifying the hostname that needs to be translated
+  -  DNS in the user’s host then takes over, sending a query message into the network.
+  -  All DNS
+  query and reply messages are sent within UDP datagrams to port 53.
+  - After a delay, DNS in the user’s host receives a DNS
+  reply message that provides the desired mapping
+  - This mapping is then passed to
+  the invoking application
+- The problems with a centralized design
+include:
+  - **A single point of failure**: If the DNS server crashes, so does the entire Internet!
+  - **Traffic volume**: A single DNS server would have to handle all DNS queries
+  - **Distant centralized database**: A single DNS server cannot be “close to” all the
+querying clients.
+  - **Maintenance**: The single DNS server would have to keep records for all Internet
+hosts.
+#### **A distributed Hierachical Database**
+- The mappings are distributed across the DNS servers.
+- There are three classes of DNS servers which belong to hierarchy of
+DNS servers:     
+  - Root DNS servers: In the Internet there are 13 root DNS servers. Each “server” is actually a network of replicated servers, for both security and reliability purposes
+  - Top-level domain (TLD) DNS
+servers: These servers are responsible for top-level
+domains such as com, org, net, edu, and gov, and all of the country top-level domains
+such as uk, fr, ca, and jp.
+  - Authoritative DNS servers: Every organization with publicly accessible hosts on the Internet must provide publicly accessible DNS records that map the names of those hosts to IP addresses
+- How the three classes interact with *amazon.com*:
+  - The client first contacts
+one of the root servers, which returns IP addresses for TLD servers for the top-level
+domain *com*
+  - The client then contacts one of these TLD servers, which returns the
+IP address of an authoritative server for *amazon.com*.
+  - The client finally contacts
+one of the authoritative servers for amazon.com, which returns the IP address for the hostname www.amazon.com
+- A **local DNS server** does not belong to the hierarchy of servers but is central to the DNS architecture.
+- When a host connects to an ISP, the ISP provides the IP addresses of its local DNS servers
+- When a host makes a DNS query, the query is sent to the local DNS server, which acts a proxy, forwarding the query into the DNS
+server hierarchy
+- In order to obtain the mapping
+for one hostname, eight DNS messages were sent. DNS caching can help.
+- In theory, any DNS query can be **iterative** or **recursive**
+
+#### **DNS Caching**
+- DNS caching can help DNS improve delay performance and reduce DNS messages
+- In a query chain, when a
+DNS server receives a DNS reply, it can cache the mapping in its local memory
+- Because hosts and mappings between
+hostnames and IP addresses are by no means permanent, DNS servers discard cached
+information after a period of time
+
+### **2.5.3 DNS Records and Messages**
+- The DNS servers that together implement the DNS distributed database store
+**resource records** (RRs) which are four-tuple: (Name, Value, Type, TTL):
+  - TTL is the time to live of the resource record which determines when a resource should be removed from a cache
+  - Type:
+    - Type = A: Name is a hostname and Value is the IP address for the hostname. Type A provides the standard hostname-to-IP address mapping.
+    - Type = NS: Name is a domain and Value is the hostname of an authoratative DNS server  that knows how to obtain the IP addresses for hosts in the domain. This record is used to route DNS queries further along in the query chain.
+    - Type = CNAME: Value is a canonical hostname for the alias hostname Name.
+    - Type = MX: Value is the canonical name of a mail server that has an alias
+    hostname Name. MX records allow the hostnames of mail servers to have simple aliases. 
+#### **DNS Messages**
+- Both query and reply messages have
+the same format
+- The first 12 bytes is the **header section**, which has a number of fields
+  - The first field
+is a 16-bit number that identifies the query and is copied into the reply message.
+  - A 1-bit query/reply flag indicates
+whether the message is a query (0) or a reply (1)
+  - A 1-bit recursion-desired flag is set when a client (host or DNS server) desires that the DNS server perform recursion when it doesn’t have the record
+  - A 1-bit recursion-available field is set in a reply if the DNS server supports recursion
+  - 4 fields indicate the number of occurrences of the four types of data sections that follow the header.
+- The *question section* contains information about the query that is being made, which includes a name field and a type field
+- In a reply from a DNS server, the **answer section** contains the **resource records** for the name that was originally queried.
+- The authority section contains records of other authoritative servers.
+- The additional section contains other helpful records.
+- We can send a DNS query message directly by using **nslookup program**
+
+#### **Inserting Records into the DNS Database**
+- How records get into the database in the first place:
+  - Register the domain name at a **registrar**, which is a commercial entity that verifies the uniqueness of the domain name, enters the domain name into the DNS database (as discussed below), and collects a small fee from you for its services
+  - Provide the registrar with the names and IP addresses of your primary and secondary authoritative DNS servers. The registrar would then make sure that a Type NS and a Type A record are entered into the TLD com servers
+## **2.6 Peer-to-peer Applications**
+- There is minimal (or no) reliance on always-on infrastructure servers. Instead, pairs of intermittently connected hosts, called peers, communicate directly with each other.
+### **2.6.1 P2P File Distribution**
+- Each peer can redistribute any portion of the file it has received to any other peers
+#### **Scalability of P2P Architectures**
+- The **distribution time** is the time it
+takes to get a copy of the file to all N peers.
+- Client-server distribution time: *D<sub>cs</sub> = max{NF/u<sub>s</sub>, F/d<sub>min</sub>*}
+- P2P distribution: *D<sub>P2P</sub> = max{F/u<sub>s</sub>, F/d<sub>min</sub>, NF/(u<sub>s</sub>+u<sub>1</sub>+...+u<sub>N</sub>)*}
+- Thus, applications with the P2P
+architecture can be self-scaling. 
+#### **BitTorrent**
+- In BitTorrent lingo, the collection of all peers participating in the distribution of a particular
+file is called a *torrent*
+-  Peers in a torrent download equal-size *chunks* of the file
+from one another, and also upload chunks
+- Mechanism:
+  - Each torrent has an infrastructure node called a *tracker*.
+  - The tracker keeps
+track of the peers that are participating in the torrent.
+  -  In deciding which chunks to request, Alice uses a technique called **rarest
+first**. 
+  - To determine which requests she responds to, BitTorrent uses a clever trading algorithm. 
+### **2.6.2 Distributed Hash Tables**
+-  In the P2P system, each peer will only hold a small subset of the totality of the (key, value) pairs.
+-  The distributed database will then locate the peers that have the corresponding (key, value) pairs and return the key-value pairs to the querying peer.
+-  Each peer and key is assigned an identifier which can be expressed by an n-bit representation.
+- The closest peer is the **closest successor** of the key.
+- However, each peer have to keep track of *all* other peers, which is impractical.
+#### **Circular DHT**
+- In this circular arrangement, each peer only keeps track of its immediate successor and immediate predecessor (modulo 2<sup>n</sup>)
+- This circular arrangement of the peers is a special case of an **overlay
+network**. In an overlay network, the peers form an abstract logical network which
+resides above the “underlay” computer network consisting of physical links, routers, and hosts.
+- However, to find the node responsible for a key (in the worst case), all N
+nodes in the DHT will have to forward a message around the circle; N/2 messages
+are sent on average.
+- In designing a DHT, there is tradeoff between the number of neighbors each
+peer has to track and the number of messages that the DHT needs to send to resolve a single query
+- One such refinement is that each peer keeps track of a small number of peers
