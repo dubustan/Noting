@@ -911,3 +911,136 @@ are sent on average.
 - In designing a DHT, there is tradeoff between the number of neighbors each
 peer has to track and the number of messages that the DHT needs to send to resolve a single query
 - One such refinement is that each peer keeps track of a small number of peers
+
+# **3. Transport Layer**
+## **3.1 Introduction to Transport Layer Services**
+- Application processes
+use the **logical communication** provided by the transport layer to send messages to
+each other
+- Transport-layer protocols are implemented in the end systems but not in network routers
+- **Sending side**: Transport layer convert application-layer messages into tranport-layer packets (**segments**): breaking messages into chunks and adding header to each chunk.
+- **Receiving side**: the network layer extracts the transport-layer segment from the datagram and passes the segment up to the transport layer.
+
+### **3.1.1 Relationship Between Transport and Network Layers**
+- Whereas a transport-layer protocol provides logical communication between
+*processes* running on different hosts, a network-layer protocol provides logical communication between *hosts*
+- A computer network may make available multiple transport protocols with different service
+- The services that a transport protocol can provide are often constrained by the service model of the underlying network-layer protocol
+- Certain services *can* be offered by a transport protocol even when
+the underlying network protocol doesn’t offer the corresponding service at the network layer
+
+### **3.1.2 Overview of the Transport Layer in the Internet**
+- There are two transport-layer protocol available to the application layer: **UDP** (User Datagram Protocol) and **TCP** (Transmission Control Protocol)
+- The IP (Internet Protocol) service model is a **best-effort delivery service** and is said to be **unreliable service** (make best effort to deliver but make no guarantees)
+- Each host has an IP address
+- Extending host-to-host
+delivery to process-to-process delivery is called **transport-layer multiplexing** and
+**demultiplexing**
+- UDP is an unreliable service. TCP provides **reliable data transfer** and **congestion control**.
+## **3.2 Multiplexing and Demultiplexing**
+- Each socket has a unique identifier
+- At the receiving end, the transport layer examines the fields (at the segment) to identify the receiving socket and then directs the segment to that socket (**demultiplexing**)
+- The job of gathering data chunks at the source host from different
+sockets, encapsulating each data chunk with header information to create segments, and passing the segments to the network
+layer is called **multiplexing**
+- The special fields are the **source port number field** and the **destination port number field**
+- Each port number is a 16-bit number, ranging from 0 to 65535. The port numbers ranging from 0 to 1023 are called **well-known port numbers**
+
+#### **Connectionless Multiplexing and Demultiplexing**
+- The transport layer in Host A creates a transport-layer segment that
+includes the application data, the source port number, the destination port
+number, and two other value.
+- The transport layer then passes the resulting segment to the network layer. Thee network layer try to deliver the segment to the receiving host.
+- If the segment arrives at the receiving Host B, the transport layer at the receiving
+host examines the destination port number in the segment and delivers the
+segment to its socket.
+- Purpose of the source port number: used by the server to send response
+
+#### **Connection-Oriented Multiplexing and Demultiplexing**
+- A TCP socket is identified by a four-tuple: (source IP address, source port number, destination IP address, destination port number).
+- The host uses all four
+values to direct (demultiplex) the segment to the appropriate socket. 
+- The server host may support many simultaneous TCP connection sockets, with
+each socket attached to a process, and with each socket identified by its own fourtuple.
+
+#### **Web Servers and TCP**
+- High-performing Web servers often use only
+one process, and create a new thread with a new connection socket for each new
+client connection.
+- If the client and server use persistent HTTP,  the client and server exchange HTTP messages via the same server socket.
+- If the client and server use non-persistent HTTP, a new socket is created and later closed for every request/response, which can result in busy Web server.
+
+## **3.3 Connectionless Transport: UDP**
+- Aside from the multiplexing/demultiplexing function and some light error
+checking, UDP adds nothing to IP
+- Many applications are better suited for UDP for the following reasons:
+  - *Finer application-level control over what data is sent, and when*
+  - *No connection establishment*
+  - *No connection state.*
+  - *Small packet header overhead.*
+- Popular Internet applications and their underlying transport protocol
+
+|Application|Application-layer Protocol|Underlying Transport Protocol|
+|-|-|-|
+|Electronic mail|SMTP|TCP|
+|Remote Terminal access|Telnet|TCP|
+|Web| HTTP|TCP|
+|File transfer|FTP|TCP|
+|Remote file server|NFS|Typically UDP|
+|Streaming multimedia|typically proprietary|UDP or TCP|
+|Internet telephony|typically proprietary|UDP or TCP|
+|Network management|SNMP|Typically UDP|
+|Routing protocol|RIP|Typically UDP|
+|Name translation|DNS|Typically UDP|
+
+### **3.3.1 UDP Segment Structure**
+- The UDP header has only four fields, each consisting of two bytes:
+  - The port numbers
+  - The length field specifies the number of bytes in the UDP segment
+  - The checksum is used by the receiving host to check whether errors have been introduced into the segment
+### **3.3.2 UDP Checksum**
+- The checksum is used to determine whether bits within the UDP segment have been altered as it moved from source to destination *on an
+end-end basis*
+- The reason to use checksum: 
+  - There is no guarantee that all the links between source and destination provide error checking
+  - Tt’s possible that bit errors could be introduced when a segment is stored in a router’s memory.
+- **End-end principle**: "functions placed at the lower levels may be redundant or of little
+value when compared to the cost of providing them at the higher level"
+- UDP does not do anything to recover from an error
+
+## **3.4 Principles of Reliable Data Transfer**
+- It is the responsibility of a **reliable data transfer protocol** to implement this
+service abstraction.
+- The layer *below* the
+reliable data transfer protocol may be unreliable.
+
+### **3.4.1 Building a Reliable Data Transfer Protocol**
+#### **Reliable Data Transfer over a Perfectly Reliable Channel**
+- The **finite-state machine** defines the operation of the sender or receiver  
+  - The sending side of *rdt* simply accepts data from the upper layer via the event, creates a packet and sends the packet into the channel.
+  - On the receiving side, *rdt* receives a packet from the underlying channel, removes the data from the packet and passes the data up to the upper layer.
+
+#### **Reliable Data Transfer over a Channel with Bit Errors**
+- Bit errors typically occur in the physical components of a
+network as a packet is transmitted, propagates, or is buffered
+- Eeliable data transfer protocols based on retransmission are known as
+**ARQ (Automatic Repeat reQuest)** protocols.
+- Fundamentally, three additional protocol capabilities are required in ARQ
+protocols to handle the presence of bit errors:
+  - Error detection
+  - Receiver feedback
+  - Retransmission
+- The send side has 2 states:
+  - Waiting for call from above: When the event occurs, the sender will create a packet containing the data and a packet checksum, and then send the packet.
+  - Waiting for acknowledgements: If the acknowledgements are positive, the protocol returns to waiting state. Otherwise, the packet need to be resent (cannot get data from upper layer).
+- The receiver has 1 single state: The receiver send back the acknowledgement, and deliver the data if it is not corrupted.
+- A fatal flaw: the ACK or NAK packet could be corrupted
+- Potential solution:
+  - Add enough checksum bits 
+  - Resend the current data packet. However, this can result in **duplicate packet** - the receiver does not know the acknowledgements it last sent
+- A simple solution: add a new field and put a **sequence number** into the field to help receiver determine retransmission.
+
+#### **Reliable Data Transfer over a Lossy Channel with Bit Errors**
+- Two additional concerns:
+  - How to detect packet loss
+  - What to do when packet loss occurs
