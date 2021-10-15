@@ -1,4 +1,4 @@
-# **1. Computer Network and the Internet**
+# **1 Computer Network and the Internet**
 ## **1.1 What is Internet**
 ### **1.1.1 A Nuts-and-Bolts Description**
 - **Hosts** or **end systems**: nontraditional devices that are being hooked up to the Internet
@@ -17,23 +17,23 @@ the most important protocols in the Internet. (control the sending and receiving
 - The Internet’s
 principal protocols are collectively known as **TCP/IP**
 -  Internet standards are developed by the Internet Engineering Task Force (IETF)[IETF 2012]. The IETF standards documents are called requests for comments (RFCs)
-### **1.1.2. A Services Description**
+### **1.1.2 A Services Description**
 - Internet is *an infrastructure that provides services to applications*. 
 - The applications are said to be **distributed applications**, since they involve multiple end systems that exchange data with each other
 - **Application Programming
 Interface (API)** is a set of rules that the sending program must follow so that the Internet can deliver the data to the destination
 program
-### **1.1.3. What is a protocol**
+### **1.1.3 What is a protocol**
 - A **protocol** defines the format and the order of messages exchanged between
 two or more communicating entities, as well as the actions taken on the transmission and/or receipt of a message or other event.
-## **1.2. The Networking Edge**
+## **1.2 The Networking Edge**
 - End systems are also referred to as *hosts* because they host (that is, run) application programs such as a Web browser program, a Web server program, an e-mail
 client program, or an e-mail server program (*host = end system*)
 - *hosts* are divided into 2 categories: **clients** and **servers**
   - **clients**: desktop, mobile PCs, smartphones
   - **servers**: more powerful machines that store and distribute Web pages, stream video, relay e-mail,
 - Most of the servers from which we receive search results, e-mail, Web pages, and videos reside in large **data centers**
-### **1.2.1. Access Network**
+### **1.2.1 Access Network**
 - Access network - the network that physically connects an end system to the first router on a path from the end system to any other distant end system.
 - Today, the two most prevalent types of broadband residential access are **digital
 subscriber line (DSL)** and cable
@@ -65,7 +65,7 @@ components of home networks.
 to send/receive packets through a base station that is operated by the cellular network provider
 - **LTE** ( for “Long-Term Evolution”—a candidate for Bad Acronym of the Year Award) has its roots in 3G technology, and can potentially achieve rates in excess of 10 Mbps
 
-### **Physical Media**
+#### **Physical Media**
 - Thus our bit, when traveling from source to destination, passes through a series
 of transmitter-receiver pairs. For each transmitter-receiver pair, the bit is sent by propagating electromagnetic waves or optical pulses across a **physical medium**.
 - Physical media fall
@@ -101,8 +101,8 @@ operate in the wide area, spanning tens of kilometers
 above one spot on Earth. They rotate around Earth (just as the Moon does) and may
 communicate with each other, as well as with ground stations.
 
-## **Network Core**
-### **1.3.1. Packet Switching**
+## **1.3 Network Core**
+### **1.3.1 Packet Switching**
 - In a network application, end systems exchange **messages** with each other.
 - To send a message from a source end system to a destination end system, the source breaks long messages into smaller chunks of data known as **packets**.
 - Between source and destination, each packet travels through **communication links** and **packet switches** (for which there are two predominant types, **routers** and **linklayer switches**)
@@ -129,7 +129,7 @@ But how does the router determine which link it should forward the packet onto?
 - The Internet has a number of special routing protocols that are
 used to automatically set the forwarding tables.
 
-### **1.3.2. Circuit Switching**
+### **1.3.2 Circuit Switching**
 - In circuit-switched networks, the resources needed along a path (buffers, link
 transmission rate) to provide for communication between the end systems are
 *reserved* for the duration of the communication session between the end systems
@@ -159,7 +159,7 @@ wasteful because the dedicated circuits are idle during **silent periods**
 - Circuit switching pre-allocates use of the transmission link regardless of demand, with allocated but unneeded link time going unused. Packet
 switching on the other hand allocates link use *on demand*.
 
-### **1.3.3. A Network of Networks**
+### **1.3.3 A Network of Networks**
 - Our first network structure, *Network Structure 1*, interconnects all of the
 access ISPs with a *single global transit ISP*.
 - Since the access ISP pays the global transit ISP, the access ISP is said to be a **customer** and the global transit ISP is said to be a **provider**.
@@ -181,7 +181,7 @@ over the direct connection rather than through upstream intermediaries.
 Point (IXP)**, which is a meeting point where multiple ISPs can peer together. 
 - Network Structure 5 is built on top of Network Structure 4 by adding content provider networks.
 
-## **1.4. Delay, Loss, and Throughput in Packet-Switched Networks**
+## **1.4 Delay, Loss, and Throughput in Packet-Switched Networks**
 - Computer networks necessarily constrain **throughput** between end systems, introduce delays between end systems, and can actually lose packets
 ### **1.4.1 Overview of Delay in Packet-Switched Network**
 - The most
@@ -212,7 +212,7 @@ from one router to the next**
   - d<sub>nodal</sub> = d<sub>proc</sub> + d<sub>queue</sub> + d<sub>trans</sub> + d<sub>prop</sub>
 - The contribution of these delay components can vary significantly
 
-### **1.4.2. Queuing Delay and Packet Loss**
+### **1.4.2 Queuing Delay and Packet Loss**
 - The queuing delay can vary from packet to packet.
   - $R$ is the transmission rate (**bits/sec**)
   - All packets consist of $L$ bits.
@@ -228,7 +228,7 @@ the queuing delay
 the traffic intensity approaches 1. 
 - Instead, a packet can arrive to find a full queue. With no place to store such a packet, a router will **drop** that packet; that is, the packet will be **lost**.
 
-### **1.4.3. End-to-end delay**
+### **1.4.3 End-to-end delay**
 - Congested:
   - *d<sub>end-to-end</sub> = N(d<sub>process</sub> + d<sub>trans</sub> + d<sub>prop</sub>)*
     - *d<sub>trans</sub> = L / R*
@@ -245,7 +245,7 @@ medium with other end systems;
 - Another important delay is media **packetization delay**, which is present in Voiceover-IP (VoIP) applications (the packet must be filled
 encoded digitized speech)
 
-### **Throughput in Computer Networks**
+#### **Throughput in Computer Networks**
 - In addition to delay and packet loss, another critical performance measure in computer networks is **end-to-end throughput**
 - The **instantaneous throughput** at any instant of time is the rate
 (in bits/sec) at which Host B is receiving the file
@@ -374,7 +374,7 @@ sniffing involve **cryptography**.
 packets into the Internet with a false source address is known as **IP spoofing**, and is but one of many ways in which one user can masquerade as another user.
 - To solve this problem, we will need **end-point authentication**
 
-# **2. Application Layer**
+# **2 Application Layer**
 ## **2.1 Principles of Network Applications**
 - At the core of network application development is writing programs that **run on
 different end systems** and **communicate with each other** over the network
