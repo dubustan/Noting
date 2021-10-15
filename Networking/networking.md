@@ -374,7 +374,7 @@ sniffing involve **cryptography**.
 packets into the Internet with a false source address is known as **IP spoofing**, and is but one of many ways in which one user can masquerade as another user.
 - To solve this problem, we will need **end-point authentication**
 
-# **Chapter 2**
+# **2. Application Layer**
 ## **2.1 Principles of Network Applications**
 - At the core of network application development is writing programs that **run on
 different end systems** and **communicate with each other** over the network
